@@ -1,0 +1,17 @@
+.container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-frame {
+    height: 500px;
+    width: 500px;
+    background:lightgreen;
+}
+
+.board-square {
+    height:50px;
+    width:50px;
+    border:2px solid grey;
+}
