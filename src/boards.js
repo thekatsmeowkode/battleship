@@ -25,27 +25,31 @@ const Board = () => {
             let leadingCoordRow = parseInt(String(leadingCoordinate).charAt(1))
             if (leadingCoordRow > (10 - length))
                 { return null }
-            else {return holdWorms(Worm(length, coords))}
+            else {return holdWorms(Worm(length, coords, 'horizontal'))}
         }
         else if (orientation === 'vertical')  {
             let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
             if (leadingCoordCol > (10 - length))
                 {return null}
-            else {return holdWorms(Worm(length, coords))}
+            else {return holdWorms(Worm(length, coords, 'vertical'))}
         }
     }
     
     //adds worm to Board array
     const holdWorms = (worm) => {
-        let wormCoords = worm[coords]
+        let wormCoords = worm.coords
         wormsOnBoard.push(wormCoords)
     }
     
     const receiveAttack = (coords) => {
+        for (let i=0; i <= wormsOnBoard.length; i++) {
+                if (wormsOnBoard[i].includes(coords)) {return true}
+                else {return false}
+            }
+        }
+    
 
-    }
-
-    return {createBoard, placeWorms, receiveAttack, wormsOnBoard}
+    return {createBoard, placeWorms, holdWorms, receiveAttack, wormsOnBoard}
 }
 
 module.exports = {Board} 

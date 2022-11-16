@@ -14,7 +14,7 @@ const Worm = (length, coords = null, orientation) => {
     return {
         hit,
         coords,
-        orientation
+        orientation,
         length,
         isEaten,
         hits
