@@ -1,9 +1,9 @@
-const Worm = (length) => {
+const Worm = (length, coords = null, orientation) => {
     //set doesn't allow duplicate values, good for hits functionality
     const hits = new Set()
 
     const isEaten = () => {
-        return hits.size === length
+        return (hits.size === length)
     }
 
     const hit = (coordinates) => {
@@ -13,6 +13,8 @@ const Worm = (length) => {
 
     return {
         hit,
+        coords,
+        orientation
         length,
         isEaten,
         hits
