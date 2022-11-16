@@ -1,3 +1,5 @@
+const { Board } = require('./boards')
+
 const Worm = (length, coords = null, orientation) => {
     //set doesn't allow duplicate values, good for hits functionality
     const hits = new Set()
@@ -11,13 +13,38 @@ const Worm = (length, coords = null, orientation) => {
         hits.add(coordinates)
     }
 
+    const decideWormName = (length) => {
+        let wormName
+        switch (length) {
+            case 2:
+                wormName = 'grub'
+                break;
+            case 3:
+                wormName = 'larvae'
+                break;
+            case 4:
+                wormName = 'flatworm'
+                break;
+            case 5:
+                wormName = 'earthworm'
+                break;
+            default:
+                wormName = 'worm'
+        }
+        return wormName
+    }
+
+    const wormName = decideWormName(length)
+
     return {
+        decideWormName,
         hit,
+        isEaten,
         coords,
         orientation,
         length,
-        isEaten,
-        hits
+        hits,
+        wormName
     }
 }
 

@@ -18,6 +18,7 @@ const Board = () => {
         return board
     }
 
+    //checks for valid placement of worm & creates worm if valid
     const placeWorms = (coords, orientation) => {
         let leadingCoordinate = coords[0]
         let length = coords.length
@@ -25,7 +26,9 @@ const Board = () => {
             let leadingCoordRow = parseInt(String(leadingCoordinate).charAt(1))
             if (leadingCoordRow > (10 - length))
                 { return null }
-            else {return holdWorms(Worm(length, coords, 'horizontal'))}
+            else {
+                
+                return holdWorms(Worm(length, coords, 'horizontal'))}
         }
         else if (orientation === 'vertical')  {
             let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
@@ -36,20 +39,27 @@ const Board = () => {
     }
     
     //adds worm to Board array
-    const holdWorms = (worm) => {
-        let wormCoords = worm.coords
-        wormsOnBoard.push(wormCoords)
+    const holdWorms = (wormObject) => {
+        let wormLabel = wormObject.wormName
+        let wormCoords = wormObject.coords
+        wormForMemory = {}
+        wormForMemory[wormLabel] = wormCoords
+        wormsOnBoard.push(wormForMemory)
     }
     
+    //checks if coord clicked matches any worms that exist on board
     const receiveAttack = (coords) => {
-        for (let i=0; i <= wormsOnBoard.length; i++) {
-                if (wormsOnBoard[i].includes(coords)) {return true}
-                else {return false}
-            }
+        if (wormsOnBoard.map(Object.values).some(([i]) => i.includes(coords)))
+            {return true}
+        else {return false}
+            
         }
-    
 
-    return {createBoard, placeWorms, holdWorms, receiveAttack, wormsOnBoard}
+    const sendAttackToWorm = (wormArray, coords) => {
+        console.log('hello')
+    }
+
+    return {createBoard, placeWorms, holdWorms, receiveAttack, sendAttackToWorm, wormsOnBoard}
 }
 
 module.exports = {Board} 
