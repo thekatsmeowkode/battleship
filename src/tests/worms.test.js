@@ -14,4 +14,8 @@ describe('Worm', () => {
     // test('worm registers isEaten when eaten', () => {
     //     expect(worm.isEaten).toBeTruthy()
     // })
+
+    test('when worm length is 4, name flatworm is returned', () => {
+        expect(worm.decideWormName(4)).toBe('flatworm')
+    })
 })

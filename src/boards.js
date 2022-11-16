@@ -3,6 +3,7 @@ const { Worm } = require("./worms")
 const Board = () => {
     
     const wormsOnBoard = []
+    const missedShots = []
 
     const createBoard = () => {
         let name
@@ -26,9 +27,7 @@ const Board = () => {
             let leadingCoordRow = parseInt(String(leadingCoordinate).charAt(1))
             if (leadingCoordRow > (10 - length))
                 { return null }
-            else {
-                
-                return holdWorms(Worm(length, coords, 'horizontal'))}
+            else {return holdWorms(Worm(length, coords, 'horizontal'))}
         }
         else if (orientation === 'vertical')  {
             let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
@@ -40,26 +39,28 @@ const Board = () => {
     
     //adds worm to Board array
     const holdWorms = (wormObject) => {
-        let wormLabel = wormObject.wormName
-        let wormCoords = wormObject.coords
-        wormForMemory = {}
-        wormForMemory[wormLabel] = wormCoords
-        wormsOnBoard.push(wormForMemory)
+        wormsOnBoard.push(wormObject)
     }
     
     //checks if coord clicked matches any worms that exist on board
-    const receiveAttack = (coords) => {
-        if (wormsOnBoard.map(Object.values).some(([i]) => i.includes(coords)))
-            {return true}
-        else {return false}
-            
+    const receiveAttack = (coordinates) => {
+        for (let i=0; i < wormsOnBoard.length; i++) {
+            if (wormsOnBoard[i].coords.includes(coordinates))
+                {return wormsOnBoard[i].hit(coordinates)}
+            else {continue}
         }
-
-    const sendAttackToWorm = (wormArray, coords) => {
-        console.log('hello')
+        return recordMiss(coordinates)
+    }
+    
+    const recordMiss = (coordinates) => {
+        if (missedShots.includes(coordinates)) {
+            return null
+        }
+        else {missedShots.push(coordinates)}
     }
 
-    return {createBoard, placeWorms, holdWorms, receiveAttack, sendAttackToWorm, wormsOnBoard}
+
+    return {createBoard, placeWorms, holdWorms, receiveAttack, recordMiss, wormsOnBoard, missedShots}
 }
 
 module.exports = {Board} 
