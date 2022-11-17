@@ -1,7 +1,7 @@
 const UI = () => {
-   const generateTable = () => {
+   const generateTable = (tableID, player) => {
         const table = document.createElement('table')
-        const boardFrame = document.querySelector('#player-board')
+        const boardFrame = document.querySelector(tableID)
         boardFrame.appendChild(table)
         for (let y=0; y < 10; y++) {
             const row = document.createElement('tr')
@@ -9,6 +9,7 @@ const UI = () => {
             for (let x=0; x < 10; x++) {
                 const cell = document.createElement('td')
                 cell.classList.add('board-square')
+                cell.classList.add(player)
                 cell.setAttribute('id', `${y}${x}`)
                 row.appendChild(cell)
             }
