@@ -2,17 +2,29 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    gap: 15px;
 }
 
 .board-frame {
-    height: 500px;
-    width: 500px;
-    background:lightgreen;
+    height: 520px;
+    width: 520px;
+    background-color:lightgreen;
+}
+
+table {
+    border-spacing:0px;
+}
+
+.row {
+    width:100px;
+    margin:0;
+    padding:0;
 }
 
 .board-square {
     height:50px;
     width:50px;
-    border:2px solid grey;
-    display:flex;
+    border:1px solid grey;
+    padding:0;
+    margin:0
 }
