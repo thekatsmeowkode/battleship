@@ -59,8 +59,19 @@ const Board = () => {
         else {missedShots.push(coordinates)}
     }
 
+    const checkDeadWorms = () => {
+        for (let i=0; i< wormsOnBoard.length; i++) {
+            let tallyOfDead = []
+            if (wormsOnBoard[i].coords.length === wormsOnBoard[i].hits.length)
+                {wormsOnBoard[i].dead = true
+                tallyOfDead.push(wormsOnBoard[i])}
+            else {continue}
+        }
+        if (tallyOfDead.length === wormsOnBoard.length) {} //RUN GAME OVER FUNCTION}
+        else return null
+    }
 
-    return {createBoard, placeWorms, holdWorms, receiveAttack, recordMiss, wormsOnBoard, missedShots}
+    return {createBoard, placeWorms, holdWorms, receiveAttack, recordMiss, checkDeadWorms, wormsOnBoard, missedShots}
 }
 
 module.exports = {Board} 

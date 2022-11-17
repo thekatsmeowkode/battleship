@@ -3,6 +3,7 @@ const { Board } = require('./boards')
 const Worm = (length, coords = null, orientation) => {
     
     const hits = []
+    const dead = false
 
     const isEaten = () => {
         return (hits.size === length)
@@ -43,7 +44,8 @@ const Worm = (length, coords = null, orientation) => {
         orientation,
         length,
         hits,
-        wormName
+        wormName,
+        dead
     }
 }
 
