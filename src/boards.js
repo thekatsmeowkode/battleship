@@ -1,6 +1,8 @@
 const { Worm } = require("./worms")
+import {Dragdrop} from './dragdrop'
+import {UI} from './UI'
 
-const Board = () => {
+export const Board = () => {
     
     const wormsOnBoard = []
     const missedShots = []
@@ -8,7 +10,6 @@ const Board = () => {
     const createBoard = () => {
         let name
         let board = []
-
         for (let i=0; i<10; i++) {
             for (let j=0; j<10; j++) {
                 name = `${i}`
@@ -21,23 +22,33 @@ const Board = () => {
 
     
     //checks for valid placement of worm & creates worm if valid
-    const placeWorms = (coords, orientation) => {
-        let leadingCoordinate = coords[0]
-        let length = coords.length
+    const placeWorms = (coords, wormLength, orientation) => {
         if (orientation === 'horizontal') {
-            let leadingCoordRow = parseInt(String(leadingCoordinate).charAt(1))
-            if (leadingCoordRow > (10 - length))
-                { return null }
-            else {return holdWorms(Worm(length, coords, 'horizontal'))}
-        }
-        else if (orientation === 'vertical')  {
-            let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
-            if (leadingCoordCol > (10 - length))
-                {return null}
-            else {return holdWorms(Worm(length, coords, 'vertical'))}
-        }
+            let leadingCoordRow = parseInt(String(coords).charAt(1))
+            let upperLimit = 10-wormLength
+                if (leadingCoordRow > upperLimit)
+                    {return null }
+                else {
+                    let wormCoords = []
+                    let staticCoords = `${coords.charAt(0)}`
+                    for (let i=0; i < wormLength; i++ ) {
+                        wormCoords.push(`${staticCoords}${leadingCoordRow++}`)}
+                    if (!findCommonElements(wormsOnBoard, wormCoords)) {
+                    UI().displayWorms(wormCoords)
+                    holdWorms(Worm(wormLength, wormCoords, 'horizontal'))}}
+                    else {return null}
+                    }}}
+
+        // else if (orientation === 'vertical')  {
+        //     let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
+        //     if (leadingCoordCol > (10 - length))
+        //         {return null}
+        //     else {return holdWorms(Worm(length, coords, 'vertical'))}
+        // }
+    const findCommonElements = (wormsOnBoard, proposedCoords) => {
+        return wormsOnBoard.some(item => proposedCoords.includes(item))
     }
-    
+
     //adds worm to Board array
     const holdWorms = (wormObject) => {
         wormsOnBoard.push(wormObject)
@@ -75,4 +86,4 @@ const Board = () => {
     return {createBoard, placeWorms, holdWorms, receiveAttack, recordMiss, checkDeadWorms, wormsOnBoard, missedShots}
 }
 
-module.exports = {Board} 
+// module.exports = {Board} 

@@ -1,5 +1,9 @@
 import grub from './assets/grub.png'
 import pupae from './assets/pupae.png'
+import shovel from './assets/shovel.png'
+import {Board} from './boards'
+
+let board = Board()
 
 export const Dragdrop = () => {
     const component = () => {
@@ -45,29 +49,40 @@ export const Dragdrop = () => {
     const addListeners = () => {
         document.body.addEventListener('dragstart', handleDragStart)
         document.body.addEventListener('drop', handleDrop)
-        document.body.addEventListener('dragenter', handleOver)
+        document.body.addEventListener('dragover', handleOver)
+        document.body.addEventListener('dragenter', handleEnter)
         document.body.addEventListener('dragleave', handleLeave)
     }
 
     const handleDragStart = (event) => {
         let obj = event.target
+        console.log(obj)
         if (!obj.closest('.draggable')) return;
         if (obj.classList.contains('draggable')) {
             obj = obj.getAttribute('length')
         }
+        const img = new Image()
+        img.src = shovel
+        event.dataTransfer.setDragImage(img, 120, 0)
         event.dataTransfer.setData('text/plain', obj)
     }
 
     const handleDrop = (event) => {
         let dropzone = event.target
+        let id = dropzone.id
         if (!dropzone.classList.contains('dropzone')) return;
         event.preventDefault()
-        let data = event.dataTransfer.getData('text/plain')
-        console.log(data)
-        dropzone.classList.remove('over')
+        let wormLength = event.dataTransfer.getData('text/plain')
+        board.placeWorms(id, wormLength, 'horizontal')
     }
 
     const handleOver = (event) => {
+        let dropzone = event.target
+        if (!dropzone.classList.contains('dropzone')) return;
+        event.preventDefault()
+    }
+
+    const handleEnter = (event) => {
         let dropzone = event.target
         if (!dropzone.classList.contains('dropzone')) return;
         event.preventDefault()

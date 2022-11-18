@@ -1,5 +1,5 @@
 
-const UI = () => {
+export const UI = () => {
     const instructionBox = document.getElementById('instruction-box')
 
    const generateTable = (tableID, player) => {
@@ -50,7 +50,20 @@ const UI = () => {
         }
     }
 
-    return {generateTable, registerClicks, registerHovers, gameStart}
+    const displayWorms = (wormCoords) => {
+        for (let i=0; i<wormCoords.length; i++) {
+            let boxID = `${wormCoords[i]}`
+            let box = document.querySelectorAll('.robot')
+            box.forEach((box) => {
+                if (box.id === boxID) {
+                    box.style.backgroundColor = 'red'
+                    box.style.pointerEvents = 'none'
+                }
+            })
+            }
+        }
+
+    return {generateTable, registerClicks, registerHovers, gameStart, displayWorms}
 }
 
-module.exports = {UI}
+// module.exports = {UI}
