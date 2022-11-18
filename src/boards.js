@@ -19,6 +19,7 @@ const Board = () => {
         return board
     }
 
+    
     //checks for valid placement of worm & creates worm if valid
     const placeWorms = (coords, orientation) => {
         let leadingCoordinate = coords[0]

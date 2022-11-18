@@ -20,7 +20,7 @@ const Worm = (length, coords = null, orientation) => {
                 wormName = 'grub'
                 break;
             case 3:
-                wormName = 'larvae'
+                wormName = 'pupae'
                 break;
             case 4:
                 wormName = 'flatworm'

@@ -28,3 +28,17 @@ table {
     padding:0;
     margin:0
 }
+
+.images {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bug-images {
+    width: 15vw;
+}
+
+.over {
+    background-color:'red'
+}

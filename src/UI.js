@@ -12,6 +12,7 @@ const UI = () => {
             row.classList.add('row')
             for (let x=0; x < 10; x++) {
                 const cell = document.createElement('td')
+                cell.classList.add('dropzone')
                 cell.classList.add('board-square')
                 cell.classList.add(player)
                 player === 'human' ? cell.style.pointerEvents = 'none' : null
@@ -43,7 +44,13 @@ const UI = () => {
         })
     }
 
-    return {generateTable, registerClicks, registerHovers}
+    const gameStart = (bool) => {
+        if (!bool) {
+            instructionBox.textContent = 'Please place worm on board'
+        }
+    }
+
+    return {generateTable, registerClicks, registerHovers, gameStart}
 }
 
 module.exports = {UI}
