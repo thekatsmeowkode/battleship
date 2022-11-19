@@ -1,6 +1,9 @@
+import { Board } from "./boards";
+
 export const UI = () => {
   const instructionBox = document.getElementById("instruction-box");
-
+    let wormsPlaced = false
+    
   const generateTable = (tableID, player) => {
     const table = document.createElement("table");
     table.classList.add(`${player}-table`);
@@ -28,6 +31,11 @@ export const UI = () => {
     for (const square of boardSquares) {
       square.addEventListener("click", (event) => {
         let target = event.target;
+        if (target.classList.contains('human')) {
+            Board().receiveAttack(String(target.id), 'human')
+            //check the missed shots array and pass through information on player
+        }
+
         console.log(target.id);
       });
     }
@@ -50,8 +58,16 @@ export const UI = () => {
   };
 
   const gameStart = (bool) => {
-    if (!bool) {
+   if (!bool) {
       instructionBox.textContent = "Please place worm on board";
+    }
+    else {instructionBox.textContent = ''
+    const robotCells = document.querySelectorAll('.robot')
+    const humanCells = document.querySelectorAll('.human')
+    robotCells.forEach(cell => cell.style.pointerEvents = 'none')
+    humanCells.forEach(cell => cell.style.pointerEvents = 'all')
+    humanCells.forEach(cell => cell.style.cursor = 'pointer')
+    wormsPlaced = true
     }
   };
 
@@ -68,12 +84,31 @@ export const UI = () => {
     }
   };
 
+  const createStartButton = (wormsOnBoard) => {
+    if (wormsOnBoard.length >=4) {
+        let imageHolder = document.querySelector('.images')
+        while (imageHolder.firstChild) {
+            imageHolder.removeChild(imageHolder.firstChild)
+        }
+        let container = document.querySelector('.button-holder')
+        let button = document.createElement('button')
+        button.classList.add('start-button')
+        button.textContent = 'Start Game'
+        button.addEventListener('click', () => {
+            gameStart(true)
+            Board().robotSetShips()
+        })
+        container.appendChild(button)
+    }
+  }
+
   return {
     generateTable,
     registerClicks,
     registerHovers,
     gameStart,
     displayWorms,
+    createStartButton
   };
 };
 

@@ -1,45 +1,66 @@
-const { Worm } = require("./worms");
+import { Worm } from "./worms";
 import { Dragdrop } from "./dragdrop";
 import { UI } from "./UI";
+import { Player } from './player'
 
 export const Board = () => {
   const wormsOnBoard = [];
-  const allWormCoords = [];
-  const missedShots = [];
+  const playerWormCoords = [];
+  const robotWormCoords = [];
+  const robotWormObjects = [];
+  const missedShotshuman = [];
+  const missedShotsrobot = [];
 
-  const createBoard = () => {
-    let name;
-    let board = [];
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 10; j++) {
-        name = `${i}`;
-        name += `${j}`;
-        board.push(name);
-      }
-    }
-    return board;
+  let startPlayer = player1;
+  let player1 = "human";
+  let player2 = "robot";
+
+  const switchPlayer = (current) => {
+    current === player1 ? (current = player2) : (current = player1);
   };
 
+  //   const createBoard = () => {
+  //     let name;
+  //     let board = [];
+  //     for (let i = 0; i < 10; i++) {
+  //       for (let j = 0; j < 10; j++) {
+  //         name = `${i}`;
+  //         name += `${j}`;
+  //         board.push(name);
+  //       }
+  //     }
+  //     return board;
+  //   };
+
   //checks for valid placement of worm & creates worm if valid
-  const placeWorms = (coords, wormLength, orientation) => {
-    if (orientation === "horizontal") {
-      let leadingCoordRow = parseInt(String(coords).charAt(1));
+ 
+  const placeWorms = (coords, wormLength, player) => {
+    if (player === 'human') {
+      let yValue = coords.charAt(1);
       let upperLimit = 10 - wormLength;
-      if (leadingCoordRow > upperLimit) {
+      if (yValue > upperLimit) {
         return null;
       } else {
-        let wormCoords = [];
-        let staticCoords = `${coords.charAt(0)}`;
-        for (let i = 0; i < wormLength; i++) {
-          wormCoords.push(`${staticCoords}${leadingCoordRow++}`);
-        }
-        let wormCheck = findCommonElements(wormCoords);
+        let generatedArray = generateCoordsArray(coords, wormLength);
+        let wormCheck = findCommonElements(generatedArray, player);
         if (!wormCheck) {
-          UI().displayWorms(wormCoords);
-          holdWorms(Worm(wormLength, wormCoords, "horizontal"));
-        } 
-        else return null
+          UI().displayWorms(generatedArray);
+          holdWorms(Worm(wormLength, generatedArray, player), player);
+        } else return null;
       }
+    }
+    if (player === player2) {
+        let yValue = coords.charAt(1);
+        let upperLimit = 10 - wormLength;
+        if (yValue > upperLimit) {
+          return null;
+        } else {
+          let generatedArray = generateCoordsArray(coords, wormLength);
+          let wormCheck = findCommonElements(generatedArray, player);
+          if (!wormCheck) {
+            holdWorms(Worm(wormLength, generatedArray, player), player);
+          } else return null;
+        }
     }
   };
 
@@ -49,48 +70,81 @@ export const Board = () => {
   //         {return null}
   //     else {return holdWorms(Worm(length, coords, 'vertical'))}
   // }
+  const generateCoordsArray = (coords, length) => {
+    let newArray = [];
+    let yValue = `${coords.charAt(1)}`;
+    for (let i = 0; i < length; i++) {
+      let xValue = `${coords.charAt(0)}`;
+      let xy = `${xValue}${yValue++}`;
+      newArray.push(xy);
+    }
+    return newArray;
+  };
 
-  const findCommonElements = (proposedCoords) => {
-    const flatArray = allWormCoords.flat();
-    return flatArray.some((item) => proposedCoords.includes(item));
+  const findCommonElements = (proposedCoords, player) => {
+    if (player === "human") {
+      const flatArray = playerWormCoords.flat();
+      return flatArray.some((item) => proposedCoords.includes(item));
+    }
+    if (player === "robot") {
+      const flatArray = robotWormCoords.flat();
+      return flatArray.some((item) => proposedCoords.includes(item));
+    }
   };
 
   //adds worm to Board array
-  const holdWorms = (wormObject) => {
-    wormsOnBoard.push(wormObject);
-    allWormCoords.push(wormObject.coords);
-    createStartButton(wormsOnBoard)
+  const holdWorms = (wormObject, player) => {
+    if (player === 'human') {
+      playerWormCoords.push(wormObject.coords);
+      wormsOnBoard.push(wormObject);
+      UI().createStartButton(wormsOnBoard);
+    }
+    if (player === 'robot') {
+      robotWormObjects.push(wormObject);
+      robotWormCoords.push(wormObject.coords);
+    }
   };
 
-  const createStartButton = (wormsOnBoard) => {
-    if (wormsOnBoard.length >=4) {
-        let imageHolder = document.querySelector('.images')
-        while (imageHolder.firstChild) {
-            imageHolder.removeChild(imageHolder.firstChild)
-        }
-        let container = document.querySelector('.button-holder')
-        let button = document.createElement('button')
-        container.appendChild(button)
-    }
-  }
+  const robotSetShips = () => {
+    placeWorms(Player().randomChoice(), 2, 'robot')
+    placeWorms(Player().randomChoice(), 3, 'robot')
+    placeWorms(Player().randomChoice(), 4, 'robot')
+    placeWorms(Player().randomChoice(), 5, 'robot')
+  };
 
   //checks if coord clicked matches any worms that exist on board
-  const receiveAttack = (coordinates) => {
-    for (let i = 0; i < wormsOnBoard.length; i++) {
-      if (wormsOnBoard[i].coords.includes(coordinates)) {
-        return wormsOnBoard[i].hit(coordinates);
-      } else {
-        continue;
+  const receiveAttack = (coordinates, player) => {
+    if (player === player2) {
+      for (let i = 0; i < wormsOnBoard.length; i++) {
+        if (wormsOnBoard[i].coords.includes(coordinates)) {
+          return wormsOnBoard[i].hit(coordinates);
+        } else {
+          return recordMiss(coordinates, player2);
+        }
       }
     }
-    return recordMiss(coordinates);
+    if (player === player1) {
+      for (let j = 0; j < robotWormObjects.length; j++) {
+        if (robotWormObjects[i].coords.includes(coordinates)) {
+          return robotWormObjects[i].hit(coordinates);
+        } else {
+          return recordMiss(coordinates, player1);
+        }
+      }
+    }
   };
 
-  const recordMiss = (coordinates) => {
-    if (missedShots.includes(coordinates)) {
-      return null;
-    } else {
-      missedShots.push(coordinates);
+  //need to designate what player array to add to
+  const recordMiss = (coordinates, currentPlayer) => {
+    if (currentPlayer === player1) {
+      missedShotshuman.includes(coordinates)
+        ? null
+        : missedShotshuman.push(coordinates);
+    }
+    if (currentPlayer === player2) {
+      missedShotsrobot.includes(coordinates)
+        ? null
+        : missedShotsrobot.push(coordinates);
     }
   };
 
@@ -110,15 +164,17 @@ export const Board = () => {
   };
 
   return {
-    createBoard,
     placeWorms,
     holdWorms,
     receiveAttack,
     recordMiss,
     checkDeadWorms,
+    robotSetShips,
     wormsOnBoard,
-    missedShots,
+    missedShotshuman,
+    missedShotsrobot,
+    playerWormCoords,
+    player1,
+    player2,
   };
 };
-
-// module.exports = {Board}

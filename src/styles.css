@@ -43,3 +43,17 @@ table {
 .over {
     background-color:'red'
 }
+
+.button-holder {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-button {
+    padding: 10px;
+    margin: 10px;
+    background-color: pink;
+    border:grey;
+    font-size: 30px;
+}

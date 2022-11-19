@@ -3,9 +3,11 @@ import pupae from "./assets/pupae.png";
 import shovel from "./assets/shovel.png";
 import { Board } from "./boards";
 
-let board = Board();
+
 
 export const Dragdrop = () => {
+
+    let board = Board();
   const component = () => {
     const images = document.querySelector(".images");
     let grubImg = document.createElement("img");
@@ -75,7 +77,7 @@ export const Dragdrop = () => {
     if (!dropzone.classList.contains("dropzone")) return;
     event.preventDefault();
     let wormLength = event.dataTransfer.getData("text/plain");
-    board.placeWorms(id, wormLength, "horizontal");
+    board.placeWorms(id, wormLength, 'human');
   };
 
   const handleOver = (event) => {
