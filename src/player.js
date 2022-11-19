@@ -1,6 +1,6 @@
 import { Board } from "./boards";
 
-export const Player = (currentPlayer) => {
+export function Player() {
   let previousChoices = [];
    
   const robotAttack = () => {

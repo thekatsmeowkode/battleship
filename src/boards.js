@@ -1,9 +1,9 @@
 import { Worm } from "./worms";
 import { Dragdrop } from "./dragdrop";
 import { UI } from "./UI";
-import { Player } from './player'
+import { player } from './index'
 
-export const Board = () => {
+export function Board() {
   const wormsOnBoard = [];
   const playerWormCoords = [];
   const robotWormCoords = [];
@@ -14,6 +14,11 @@ export const Board = () => {
   let startPlayer = player1;
   let player1 = "human";
   let player2 = "robot";
+
+
+  const turnChecker = (squareID) => {
+    receiveAttack(squareID, 'human')
+  }
 
   const switchPlayer = (current) => {
     current === player1 ? (current = player2) : (current = player1);
@@ -106,10 +111,10 @@ export const Board = () => {
   };
 
   const robotSetShips = () => {
-    placeWorms(Player().randomChoice(), 2, 'robot')
-    placeWorms(Player().randomChoice(), 3, 'robot')
-    placeWorms(Player().randomChoice(), 4, 'robot')
-    placeWorms(Player().randomChoice(), 5, 'robot')
+    placeWorms(player.randomChoice(), 2, 'robot')
+    placeWorms(player.randomChoice(), 3, 'robot')
+    placeWorms(player.randomChoice(), 4, 'robot')
+    placeWorms(player.randomChoice(), 5, 'robot')
   };
 
   //checks if coord clicked matches any worms that exist on board
@@ -125,12 +130,11 @@ export const Board = () => {
     }
     if (player === player1) {
       for (let j = 0; j < robotWormObjects.length; j++) {
-        if (robotWormObjects[i].coords.includes(coordinates)) {
-          return robotWormObjects[i].hit(coordinates);
-        } else {
-          return recordMiss(coordinates, player1);
-        }
+        if (robotWormObjects[j].coords.includes(coordinates)) {
+          return robotWormObjects[j].hit(coordinates);}
+         else { continue }
       }
+      return recordMiss(coordinates, player1);
     }
   };
 
@@ -170,6 +174,8 @@ export const Board = () => {
     recordMiss,
     checkDeadWorms,
     robotSetShips,
+    turnChecker,
+    // registerClicks,
     wormsOnBoard,
     missedShotshuman,
     missedShotsrobot,

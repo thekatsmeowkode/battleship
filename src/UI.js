@@ -1,6 +1,7 @@
 import { Board } from "./boards";
+import {board} from './index.js'
 
-export const UI = () => {
+export function UI () {
   const instructionBox = document.getElementById("instruction-box");
     let wormsPlaced = false
     
@@ -23,21 +24,6 @@ export const UI = () => {
         row.appendChild(cell);
       }
       table.appendChild(row);
-    }
-  };
-
-  const registerClicks = () => {
-    let boardSquares = document.getElementsByClassName("board-square");
-    for (const square of boardSquares) {
-      square.addEventListener("click", (event) => {
-        let target = event.target;
-        if (target.classList.contains('human')) {
-            Board().receiveAttack(String(target.id), 'human')
-            //check the missed shots array and pass through information on player
-        }
-
-        console.log(target.id);
-      });
     }
   };
 
@@ -96,7 +82,7 @@ export const UI = () => {
         button.textContent = 'Start Game'
         button.addEventListener('click', () => {
             gameStart(true)
-            Board().robotSetShips()
+            board.robotSetShips()
         })
         container.appendChild(button)
     }
@@ -104,7 +90,7 @@ export const UI = () => {
 
   return {
     generateTable,
-    registerClicks,
+    // registerClicks,
     registerHovers,
     gameStart,
     displayWorms,

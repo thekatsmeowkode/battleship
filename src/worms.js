@@ -9,6 +9,7 @@ const Worm = (length, coords, player) => {
   };
 
   const hit = (coordinates) => {
+    
     return hits.push(coordinates);
   };
 

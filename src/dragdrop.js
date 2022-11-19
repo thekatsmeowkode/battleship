@@ -2,12 +2,12 @@ import grub from "./assets/grub.png";
 import pupae from "./assets/pupae.png";
 import shovel from "./assets/shovel.png";
 import { Board } from "./boards";
+import {board} from './index'
 
 
 
-export const Dragdrop = () => {
-
-    let board = Board();
+export function Dragdrop() {
+  
   const component = () => {
     const images = document.querySelector(".images");
     let grubImg = document.createElement("img");
