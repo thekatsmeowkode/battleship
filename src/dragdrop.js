@@ -1,6 +1,8 @@
 import grub from "./assets/grub.png";
 import pupae from "./assets/pupae.png";
 import shovel from "./assets/shovel.png";
+import flatworm from './assets/flatworm.png'
+import earthworm from './assets/earthworm.png'
 import { Board } from "./boards";
 import {board} from './index'
 
@@ -36,7 +38,7 @@ export function Dragdrop() {
     flatwormImg.setAttribute("draggable", true);
     flatwormImg.setAttribute("length", 4);
     flatwormImg.setAttribute('id', 'flatworm')
-    flatwormImg.src = pupae;
+    flatwormImg.src = flatworm
     flatwormImg.alt = "image of flatworm";
     images.appendChild(flatwormImg);
     //
@@ -46,7 +48,7 @@ export function Dragdrop() {
     earthwormImg.setAttribute("length", 5);
     earthwormImg.setAttribute("draggable", true);
     earthwormImg.setAttribute('id', 'earthworm')
-    earthwormImg.src = grub;
+    earthwormImg.src = earthworm
     earthwormImg.alt = "image of flatworm";
     images.appendChild(earthwormImg);
   };

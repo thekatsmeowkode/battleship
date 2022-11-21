@@ -9,9 +9,6 @@ export const ui = UI();
 export const dragdrop = Dragdrop();
 export let player = Player()
 export let board = Board()
-// UI()
-// Dragdrop()
-// Player()
 ui.generateTable("#player-board", "human");
 ui.generateTable("#robot-board", "robot");
 ui.registerHovers()
