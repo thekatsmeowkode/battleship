@@ -4,10 +4,11 @@ import { Dragdrop } from "./dragdrop.js";
 import { Board } from "./boards";
 import {Player} from'./player'
 
-export let board = Board()
+
 export const ui = UI();
 export const dragdrop = Dragdrop();
 export let player = Player()
+export let board = Board()
 // UI()
 // Dragdrop()
 // Player()
@@ -21,7 +22,8 @@ function registerClicks() {
     document.querySelectorAll('.human').forEach(square => 
         square.addEventListener("click", (event) => {
         let target = event.target;
-        board.turnChecker(target.id)
+        board.receiveAttack(target.id, 'human')
+        console.log(target.id)
       }))
     }
 registerClicks()

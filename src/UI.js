@@ -71,20 +71,38 @@ export function UI () {
   };
 
   const createStartButton = (wormsOnBoard) => {
+    let button = document.createElement('button')
     if (wormsOnBoard.length >=4) {
         let imageHolder = document.querySelector('.images')
         while (imageHolder.firstChild) {
             imageHolder.removeChild(imageHolder.firstChild)
         }
         let container = document.querySelector('.button-holder')
-        let button = document.createElement('button')
+        
         button.classList.add('start-button')
         button.textContent = 'Start Game'
-        button.addEventListener('click', () => {
-            gameStart(true)
-            board.robotSetShips()
-        })
         container.appendChild(button)
+    }
+    button.addEventListener('click', () => {
+        gameStart(true)
+        board.robotSetShips()
+        button.style.visibility = 'hidden'
+    })
+  }
+
+  function changeColor(player, coords, hit) {
+    let playerName = '.' + player
+    const IDsquare = document.querySelectorAll(playerName)
+    if (hit === 'hit') {
+        IDsquare.forEach(square => {if (square.id === coords) {
+        square.style.backgroundColor = 'purple'
+        square.style.pointerEvents = 'none'
+        }})}
+    else {
+        IDsquare.forEach(square => {if (square.id === coords) {
+        square.style.backgroundColor = 'orange'
+        square.style.pointerEvents = 'none'
+        }})
     }
   }
 
@@ -94,7 +112,8 @@ export function UI () {
     registerHovers,
     gameStart,
     displayWorms,
-    createStartButton
+    createStartButton,
+    changeColor
   };
 };
 
