@@ -1,6 +1,6 @@
 import { Worm } from "./worms";
 import { UI } from "./UI";
-import { player, ui } from "./index";
+import { player, ui, worm } from "./index";
 
 export function Board() {
   const wormsOnBoard = [];
@@ -11,6 +11,7 @@ export function Board() {
   const missedShotsrobot = [];
   const totalRobotHits = [];
   const totalHumanHits = [];
+
   let choices = [
     "00",
     "01",
@@ -119,7 +120,7 @@ export function Board() {
 
   function randomNumber(array) {
     let randomNumber = Math.floor(Math.random() * 100);
-    return choices[randomNumber];
+    return array[randomNumber];
   }
 
   const duplicateChecker = (coords) => {
@@ -155,7 +156,7 @@ export function Board() {
         let wormCheck = findCommonElements(generatedArray, playerName);
         if (!wormCheck) {
           holdWorms(Worm(wormLength, generatedArray, playerName), playerName);
-        } else return null;
+        } else placeWorms(player.randomChoice(), wormLength, playerName);
       }
     }
   };
