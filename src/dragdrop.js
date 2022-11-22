@@ -1,20 +1,17 @@
 import grub from "./assets/grub.png";
 import pupae from "./assets/pupae.png";
 import shovel from "./assets/shovel.png";
-import flatworm from './assets/flatworm.png'
-import earthworm from './assets/earthworm.png'
+import flatworm from "./assets/flatworm.png";
+import earthworm from "./assets/earthworm.png";
 import { Board } from "./boards";
-import {board} from './index'
-
-
+import { board } from "./index";
 
 export function Dragdrop() {
-  
   const component = () => {
     const images = document.querySelector(".images");
     let grubImg = document.createElement("img");
     grubImg.classList.add("bug-images");
-    grubImg.setAttribute('id', 'grub')
+    grubImg.setAttribute("id", "grub");
     grubImg.classList.add("draggable");
     grubImg.setAttribute("draggable", true);
     grubImg.setAttribute("length", 2);
@@ -27,7 +24,7 @@ export function Dragdrop() {
     pupaeImg.classList.add("draggable");
     pupaeImg.setAttribute("draggable", true);
     pupaeImg.setAttribute("length", 3);
-    pupaeImg.setAttribute('id', 'pupae')
+    pupaeImg.setAttribute("id", "pupae");
     pupaeImg.src = pupae;
     pupaeImg.alt = "image of pupae";
     images.appendChild(pupaeImg);
@@ -37,8 +34,8 @@ export function Dragdrop() {
     flatwormImg.classList.add("draggable");
     flatwormImg.setAttribute("draggable", true);
     flatwormImg.setAttribute("length", 4);
-    flatwormImg.setAttribute('id', 'flatworm')
-    flatwormImg.src = flatworm
+    flatwormImg.setAttribute("id", "flatworm");
+    flatwormImg.src = flatworm;
     flatwormImg.alt = "image of flatworm";
     images.appendChild(flatwormImg);
     //
@@ -47,8 +44,8 @@ export function Dragdrop() {
     earthwormImg.classList.add("draggable");
     earthwormImg.setAttribute("length", 5);
     earthwormImg.setAttribute("draggable", true);
-    earthwormImg.setAttribute('id', 'earthworm')
-    earthwormImg.src = earthworm
+    earthwormImg.setAttribute("id", "earthworm");
+    earthwormImg.src = earthworm;
     earthwormImg.alt = "image of flatworm";
     images.appendChild(earthwormImg);
   };
@@ -79,7 +76,7 @@ export function Dragdrop() {
     if (!dropzone.classList.contains("dropzone")) return;
     event.preventDefault();
     let wormLength = event.dataTransfer.getData("text/plain");
-    board.placeWorms(id, wormLength, 'human');
+    board.placeWorms(id, wormLength, "human");
   };
 
   const handleOver = (event) => {
@@ -103,4 +100,4 @@ export function Dragdrop() {
   };
 
   return { component, addListeners, handleDragStart, handleDrop };
-};
+}

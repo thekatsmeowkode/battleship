@@ -1,10 +1,9 @@
-import { Board } from "./boards";
-import {board} from './index.js'
+import { board } from "./index.js";
 
-export function UI () {
+export function UI() {
   const instructionBox = document.getElementById("instruction-box");
-    let wormsPlaced = false
-    
+  let wormsPlaced = false;
+
   const generateTable = (tableID, player) => {
     const table = document.createElement("table");
     table.classList.add(`${player}-table`);
@@ -32,7 +31,7 @@ export function UI () {
       .querySelector(".robot-table")
       .addEventListener("mouseover", (event) => {
         let target = event.target;
-        target.style.backgroundColor = "red";
+        target.style.backgroundColor = "pink";
       });
 
     document
@@ -44,16 +43,16 @@ export function UI () {
   };
 
   const gameStart = (bool) => {
-   if (!bool) {
+    if (!bool) {
       instructionBox.textContent = "Please place worm on board";
-    }
-    else {instructionBox.textContent = ''
-    const robotCells = document.querySelectorAll('.robot')
-    const humanCells = document.querySelectorAll('.human')
-    robotCells.forEach(cell => cell.style.pointerEvents = 'none')
-    humanCells.forEach(cell => cell.style.pointerEvents = 'all')
-    humanCells.forEach(cell => cell.style.cursor = 'pointer')
-    wormsPlaced = true
+    } else {
+      instructionBox.textContent = "";
+      const robotCells = document.querySelectorAll(".robot");
+      const humanCells = document.querySelectorAll(".human");
+      robotCells.forEach((cell) => (cell.style.pointerEvents = "none"));
+      humanCells.forEach((cell) => (cell.style.pointerEvents = "all"));
+      humanCells.forEach((cell) => (cell.style.cursor = "pointer"));
+      wormsPlaced = true;
     }
   };
 
@@ -63,7 +62,7 @@ export function UI () {
       let box = document.querySelectorAll(".robot");
       box.forEach((box) => {
         if (box.id === boxID) {
-          box.style.backgroundColor = "red";
+          box.style.backgroundColor = "pink";
           box.style.pointerEvents = "none";
         }
       });
@@ -71,50 +70,51 @@ export function UI () {
   };
 
   const createStartButton = (wormsOnBoard) => {
-    let button = document.createElement('button')
-    if (wormsOnBoard.length >=4) {
-        let imageHolder = document.querySelector('.images')
-        while (imageHolder.firstChild) {
-            imageHolder.removeChild(imageHolder.firstChild)
-        }
-        let container = document.querySelector('.button-holder')
-        
-        button.classList.add('start-button')
-        button.textContent = 'Start Game'
-        container.appendChild(button)
+    let button = document.createElement("button");
+    if (wormsOnBoard.length >= 4) {
+      let imageHolder = document.querySelector(".images");
+      while (imageHolder.firstChild) {
+        imageHolder.removeChild(imageHolder.firstChild);
+      }
+      let container = document.querySelector(".button-holder");
+
+      button.classList.add("start-button");
+      button.textContent = "Start Game";
+      container.appendChild(button);
     }
-    button.addEventListener('click', () => {
-        gameStart(true)
-        board.robotSetShips()
-        button.style.visibility = 'hidden'
-    })
-  }
+    button.addEventListener("click", () => {
+      gameStart(true);
+      board.robotSetShips();
+      button.style.visibility = "hidden";
+    });
+  };
 
   function changeColor(player, coords, hit) {
-    let playerName = '.' + player
-    const IDsquare = document.querySelectorAll(playerName)
-    if (hit === 'hit') {
-        IDsquare.forEach(square => {if (square.id === coords) {
-        square.style.backgroundColor = 'purple'
-        square.style.pointerEvents = 'none'
-        }})}
-    else {
-        IDsquare.forEach(square => {if (square.id === coords) {
-        square.style.backgroundColor = 'orange'
-        square.style.pointerEvents = 'none'
-        }})
+    let playerName = "." + player;
+    const IDsquare = document.querySelectorAll(playerName);
+    if (hit === "hit") {
+      IDsquare.forEach((square) => {
+        if (square.id === coords) {
+          square.style.backgroundColor = "red";
+          square.style.pointerEvents = "none";
+        }
+      });
+    } else {
+      IDsquare.forEach((square) => {
+        if (square.id === coords) {
+          square.style.backgroundColor = 'darkgreen';
+          square.style.pointerEvents = "none";
+        }
+      });
     }
   }
 
   return {
     generateTable,
-    // registerClicks,
     registerHovers,
     gameStart,
     displayWorms,
     createStartButton,
-    changeColor
+    changeColor,
   };
-};
-
-// module.exports = {UI}
+}

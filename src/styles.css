@@ -1,3 +1,12 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    height:100vh;
+
+}
 .container {
     display:flex;
     justify-content: center;
@@ -9,6 +18,12 @@
     height: 520px;
     width: 520px;
     background-color:lightgreen;
+}
+
+.title {
+    font-family: 'Butterfly Kids', 'cursive';
+    font-size: 10vh;
+    text-align:center;
 }
 
 table {
@@ -34,6 +49,7 @@ table {
     display:flex;
     align-items: center;
     justify-content: center;
+    height:20vh;
 }
 
 .bug-images {
@@ -57,3 +73,11 @@ table {
     border:grey;
     font-size: 30px;
 }
+
+p {
+    text-align:center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:16px;
+    padding:10px;
+}
+

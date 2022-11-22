@@ -111,7 +111,7 @@ export function Board() {
     "96",
     "97",
     "98",
-    "99"
+    "99",
   ];
 
   let player1 = "human";
@@ -121,7 +121,7 @@ export function Board() {
     let randomNumber = Math.floor(Math.random() * 100);
     return choices[randomNumber];
   }
-  //returns true if there ARE duplicates
+
   const duplicateChecker = (coords) => {
     if (missedShotsrobot.includes(coords) || totalHumanHits.includes(coords)) {
       return true;
@@ -160,12 +160,6 @@ export function Board() {
     }
   };
 
-  // else if (orientation === 'vertical')  {
-  //     let leadingCoordCol = parseInt(String(leadingCoordinate).charAt(0))
-  //     if (leadingCoordCol > (10 - length))
-  //         {return null}
-  //     else {return holdWorms(Worm(length, coords, 'vertical'))}
-  // }
   const generateCoordsArray = (coords, length) => {
     let newArray = [];
     let yValue = String(coords)[1];
@@ -188,7 +182,6 @@ export function Board() {
     }
   };
 
-  //adds worm to Board array
   const holdWorms = (wormObject, player) => {
     if (player === "human") {
       playerWormCoords.push(wormObject.coords);
@@ -228,28 +221,27 @@ export function Board() {
     ui.changeColor(player2, coordinates, "hit");
   };
 
-  //checks if coord clicked matches any worms that exist on board
   const receiveAttack = (coordinates, player) => {
     if (player === player2) {
       receiveAttackRobot(coordinates);
     }
     if (player === player1) {
-        for (let j = 0; j < robotWormObjects.length; j++) {
-          if (robotWormObjects[j].coords.includes(coordinates)) {
-            robotWormObjects[j].hit(coordinates);
-            totalRobotHits.push(coordinates);
-            checkDeadWorms(player1);
-            ui.changeColor(player1, coordinates, "hit");
-            return receiveAttackRobot(randomNumber(choices));
-          } else {
-            continue;
-          }
+      for (let j = 0; j < robotWormObjects.length; j++) {
+        if (robotWormObjects[j].coords.includes(coordinates)) {
+          robotWormObjects[j].hit(coordinates);
+          totalRobotHits.push(coordinates);
+          checkDeadWorms(player1);
+          ui.changeColor(player1, coordinates, "hit");
+          return receiveAttackRobot(randomNumber(choices));
+        } else {
+          continue;
         }
-        recordMiss(coordinates, player1);
-        ui.changeColor(player1, coordinates, "miss");
-        receiveAttackRobot(randomNumber(choices));
       }
+      recordMiss(coordinates, player1);
+      ui.changeColor(player1, coordinates, "miss");
+      receiveAttackRobot(randomNumber(choices));
     }
+  };
 
   const recordMiss = (coordinates, currentPlayer) => {
     if (currentPlayer === player1) {
