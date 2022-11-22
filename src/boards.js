@@ -111,26 +111,22 @@ export function Board() {
     "96",
     "97",
     "98",
-    "99",
+    "99"
   ];
 
   let player1 = "human";
   let player2 = "robot";
 
   function randomNumber(array) {
-    let randomNumber = Math.floor(Math.random() * 101);
+    let randomNumber = Math.floor(Math.random() * 100);
     return choices[randomNumber];
   }
   //returns true if there ARE duplicates
-  const duplicateChecker = (coords, player) => {
-    if (player === player1) {
-      missedShotshuman.includes(coords) || totalRobotHits.includes(coords)
-        ? true
-        : false;
-    } else if (player === player2) {
-      missedShotsrobot.includes(coords) || totalHumanHits.includes(coords)
-        ? true
-        : false;
+  const duplicateChecker = (coords) => {
+    if (missedShotsrobot.includes(coords) || totalHumanHits.includes(coords)) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -153,7 +149,7 @@ export function Board() {
       let yValue = String(coords)[1];
       let upperLimit = 10 - wormLength;
       if (yValue > upperLimit) {
-        return placeWorms(player.randomChoice(), wormLength, playerName);
+        placeWorms(player.randomChoice(), wormLength, playerName);
       } else {
         let generatedArray = generateCoordsArray(coords, wormLength);
         let wormCheck = findCommonElements(generatedArray, playerName);
@@ -213,14 +209,14 @@ export function Board() {
   };
 
   const receiveAttackRobot = (coordinates) => {
-    if (duplicateChecker(coordinates, player2) === true) {
+    if (duplicateChecker(coordinates)) {
       coordinates = randomNumber(choices);
       receiveAttackRobot(coordinates, player2);
+    } else {
+      if (playerWormCoords.flat().includes(coordinates)) {
+        robotHit(coordinates);
       } else {
-        if (playerWormCoords.flat().includes(coordinates)) {
-            robotHit(coordinates)
-        }
-        else {recordMiss(coordinates, player2);
+        recordMiss(coordinates, player2);
         ui.changeColor(player2, coordinates, "miss");
       }
     }
@@ -238,9 +234,6 @@ export function Board() {
       receiveAttackRobot(coordinates);
     }
     if (player === player1) {
-      if (duplicateChecker(coordinates, player1) === true) {
-        return null;
-      } else {
         for (let j = 0; j < robotWormObjects.length; j++) {
           if (robotWormObjects[j].coords.includes(coordinates)) {
             robotWormObjects[j].hit(coordinates);
@@ -257,7 +250,6 @@ export function Board() {
         receiveAttackRobot(randomNumber(choices));
       }
     }
-  };
 
   const recordMiss = (coordinates, currentPlayer) => {
     if (currentPlayer === player1) {
