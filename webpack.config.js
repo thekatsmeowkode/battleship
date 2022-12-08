@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
 
 module.exports = {
     mode: 'development',
@@ -8,6 +9,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/webpack-demo",
         filename: '[name].[contenthash].js',
         assetModuleFilename: '[name][ext]',
         clean:true,
@@ -18,10 +20,12 @@ module.exports = {
         port: 8080, 
         open: true,
         hot: true,
+        historyApiFallback:true
         // watchContentBase: true,
     },
     module: {
         rules: [
+            // {test: /\.html$/i, loader: "html-loader"},
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
             {test: /\.(svg|png|ico|webp|jpg|jpeg|gif)$/, type:'asset/resource'},
             {test: /\.js$/, 
@@ -40,5 +44,6 @@ module.exports = {
             filename: 'index.html', 
             template: path.resolve(__dirname, 'src/index.html')
         })
+       
     ]
 }
