@@ -14,7 +14,7 @@
   },
   "author": "",
   "private": "false",
-  "homepage": "https://thekatsmeowkode.github.io/battleship-bird-edition/dist/",
+  "homepage": ".",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.20.2",
