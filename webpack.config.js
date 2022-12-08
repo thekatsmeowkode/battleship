@@ -3,10 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
 
 module.exports = {
-    mode: 'development',
     entry: {
         main: path.resolve(__dirname, 'src/index.js')
     },
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
