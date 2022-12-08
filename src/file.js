@@ -5,4 +5,4 @@ ghpages.publish('path-of-dir-to-commit', function(err) {
    console.log(err);
 } else {
  console.log("success");
-});
+}});
