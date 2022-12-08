@@ -9,7 +9,6 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: "/webpack-demo",
         filename: '[name].[contenthash].js',
         assetModuleFilename: '[name][ext]',
         clean:true,

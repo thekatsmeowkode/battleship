@@ -1,4 +1,4 @@
-{
+{"homepage":"https://thekatsmeowkode.github.io/battleship-bird-edition/",
   "name": "src",
   "version": "1.0.0",
   "description": "",
@@ -9,8 +9,8 @@
     "test": "jest",
     "build": "webpack",
     "dev": "webpack serve",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
