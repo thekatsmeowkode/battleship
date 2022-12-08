@@ -9,7 +9,7 @@ module.exports = {
     mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '/battleship-bird-edition/[name].[contenthash].js',
+        filename: '[name].[contenthash].js',
         assetModuleFilename: '[name][ext]',
         clean:true,
     },
