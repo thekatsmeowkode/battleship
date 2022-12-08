@@ -44,9 +44,11 @@ export function UI() {
 
   const gameStart = (bool) => {
     if (!bool) {
-      instructionBox.textContent = "Please place worm on board";
+      instructionBox.textContent =
+        "Please drag and drop up to 4 worms on right-hand board. Worm lengths run from 2 units to 5 units, left to right";
     } else {
-      instructionBox.textContent = "";
+      instructionBox.textContent =
+        "To start game, click any square on the left-side board.  Red indicates a hit and dark green indicates a miss.  The robot will make a move automatically after you choose.  Good luck!";
       const robotCells = document.querySelectorAll(".robot");
       const humanCells = document.querySelectorAll(".human");
       robotCells.forEach((cell) => (cell.style.pointerEvents = "none"));
@@ -102,7 +104,7 @@ export function UI() {
     } else {
       IDsquare.forEach((square) => {
         if (square.id === coords) {
-          square.style.backgroundColor = 'darkgreen';
+          square.style.backgroundColor = "darkgreen";
           square.style.pointerEvents = "none";
         }
       });

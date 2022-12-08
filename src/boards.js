@@ -150,13 +150,13 @@ export function Board() {
       let yValue = String(coords)[1];
       let upperLimit = 10 - wormLength;
       if (yValue > upperLimit) {
-        placeWorms(player.randomChoice(), wormLength, playerName);
+        placeWorms(randomNumber(choices), wormLength, playerName);
       } else {
         let generatedArray = generateCoordsArray(coords, wormLength);
         let wormCheck = findCommonElements(generatedArray, playerName);
         if (!wormCheck) {
           holdWorms(Worm(wormLength, generatedArray, playerName), playerName);
-        } else placeWorms(player.randomChoice(), wormLength, playerName);
+        } else placeWorms(randomNumber(choices), wormLength, playerName);
       }
     }
   };
@@ -211,6 +211,7 @@ export function Board() {
         robotHit(coordinates);
       } else {
         recordMiss(coordinates, player2);
+        checkDeadWorms(player2)
         ui.changeColor(player2, coordinates, "miss");
       }
     }
@@ -240,6 +241,7 @@ export function Board() {
       }
       recordMiss(coordinates, player1);
       ui.changeColor(player1, coordinates, "miss");
+      checkDeadWorms(player1)
       receiveAttackRobot(randomNumber(choices));
     }
   };
@@ -260,19 +262,38 @@ export function Board() {
   };
 
   const checkDeadWorms = (player) => {
+    function addResetButton() {
+      const instructionBox = document.getElementById("instruction-box");
+      instructionBox.style.display = 'flex'
+      instructionBox.style.flexDirection = 'column'
+      let resetButton = document.createElement('button')
+      resetButton.classList.add('reset-button')
+      resetButton.textContent = 'Reset Board'
+      instructionBox.appendChild(resetButton)
+      resetButton.addEventListener('click', reload, false)
+    }
+
+    function reload() {reload = location.reload()}
+
     if (player === player1) {
       if (totalHumanHits.length === playerWormCoords.flat().length) {
-        const instructionBox = document.getElementById("instruction-box");
-        instructionBox.textContent = "Game over, Robot wins";
+        instructionBox.textContent = "Game over, Robot wins!!";
+        instructionBox.style.fontSize = '70px'
+        instructionBox.style.fontFamily = 'Butterfly Kids'
+        addResetButton()
       }
     }
     if (player === player2) {
       if (totalRobotHits.length === robotWormCoords.flat().length) {
         const instructionBox = document.getElementById("instruction-box");
-        instructionBox.textContent = "Game over, Human wins";
+        instructionBox.textContent = "Game over, you win!!";
+        instructionBox.style.fontSize = '70px'
+        instructionBox.style.fontFamily = 'Butterfly Kids'
+        addResetButton()
       }
     }
   };
+
 
   return {
     placeWorms,

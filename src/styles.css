@@ -1,83 +1,94 @@
 * {
-    margin:0;
-    padding:0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    height:100vh;
-
+  height: 100vh;
 }
 .container {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 .board-frame {
-    height: 520px;
-    width: 520px;
-    background-color:lightgreen;
+  height: 520px;
+  width: 520px;
+  background-color: lightgreen;
 }
 
 .title {
-    font-family: 'Butterfly Kids', 'cursive';
-    font-size: 10vh;
-    text-align:center;
+  font-family: "Butterfly Kids", "cursive";
+  font-size: 10vh;
+  text-align: center;
 }
 
 table {
-    border-spacing:0px;
+  border-spacing: 0px;
 }
 
 .row {
-    width:100px;
-    margin:0;
-    padding:0;
+  width: 100px;
+  margin: 0;
+  padding: 0;
 }
 
 .board-square {
-    height:50px;
-    width:50px;
-    border:1px solid grey;
-    padding:0;
-    margin:0;
-    background-color:lightgreen
+  height: 50px;
+  width: 50px;
+  border: 1px solid grey;
+  padding: 0;
+  margin: 0;
+  background-color: lightgreen;
 }
 
 .images {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height:20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
 }
 
 .bug-images {
-    width: 15vw;
+  width: 15vw;
 }
 
 .over {
-    background-color:'red'
+  background-color: "red";
 }
 
 .button-holder {
-    display:flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .start-button {
+  padding: 10px;
+  margin: 10px;
+  background-color: pink;
+  border: grey;
+  font-size: 30px;
+}
+
+.reset-button {
     padding: 10px;
-    margin: 10px;
-    background-color: pink;
-    border:grey;
-    font-size: 30px;
+  margin: 10px;
+  background-color: pink;
+  border: grey;
+  font-size: 30px;
+}
+
+button:hover {
+    background-color: palevioletred;
+    border:darkgray;
 }
 
 p {
-    text-align:center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size:16px;
-    padding:10px;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  padding: 10px;
 }
-
